@@ -25,10 +25,9 @@ export class AiParserService {
 
   async parseMessage(message: string) {
     try {
-      // Clean up the message
       const cleaned_message = message
-        .replace(/\n+/g, '\n') // Remove multiple newlines
-        .replace(/[^\S\n]+/g, ' ') // Replace multiple spaces with single space
+        .replace(/\n+/g, '\n')
+        .replace(/[^\S\n]+/g, ' ')
         .trim()
 
       const completion = await this.openai.chat.completions.create({
@@ -45,7 +44,6 @@ export class AiParserService {
       })
 
       const response = completion.choices[0]?.message?.content
-      console.log('AI response:', response)
 
       if (!response) {
         throw new NotFoundException('No response from OpenAI')
@@ -59,12 +57,17 @@ export class AiParserService {
           for (let i = 0; i < parsed_data.points.length; i++) {
             const point = parsed_data.points[i]
             if (point.location_name) {
-              const coordinates = await this.locationService.getCoordinates(
-                point.location_name,
-              )
-              if (coordinates) {
-                parsed_data.points[i].latitude = coordinates.lat
-                parsed_data.points[i].longitude = coordinates.lon
+              const suggestions =
+                await this.locationService.getLocationSuggestions(
+                  point.location_name,
+                )
+              if (suggestions && suggestions.length > 0) {
+                const best_match = suggestions[0] // Get the first (best) match
+                parsed_data.points[i].latitude = best_match.lat
+                parsed_data.points[i].longitude = best_match.lon
+                parsed_data.points[i].location_id = best_match.id
+                // Update the location name to the normalized version
+                parsed_data.points[i].location_name = best_match.name
               }
             }
           }
@@ -90,7 +93,9 @@ export class AiParserService {
             ],
           }))
         }
+        console.log('cleaned message:', cleaned_message)
 
+        console.log('AI response:', parsed_data)
         return parsed_data
       } catch (error) {
         console.error('Parse error:', error)

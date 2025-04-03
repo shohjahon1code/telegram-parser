@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import configuration from './config'
 import { Load, LoadSchema } from './models/load.schema'
 import { AiParserService } from './services/ai-parser.service'
+import { GPTService } from './services/gpt.service'
 import { LocationService } from './services/location.service'
 import { TelegramParserService } from './services/telegram-parser.service'
 
@@ -24,6 +25,11 @@ import { TelegramParserService } from './services/telegram-parser.service'
     MongooseModule.forFeature([{ name: Load.name, schema: LoadSchema }]),
   ],
   controllers: [],
-  providers: [TelegramParserService, AiParserService, LocationService],
+  providers: [
+    TelegramParserService,
+    AiParserService,
+    LocationService,
+    GPTService,
+  ],
 })
 export class AppModule {}

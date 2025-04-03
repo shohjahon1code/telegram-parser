@@ -138,13 +138,6 @@ export class TelegramParserService implements OnModuleInit {
         },
         phoneCode: async () => await this.getAuthCode(),
         onError: async (err) => {
-          this.logger.error('Connection error:', err)
-          if (err instanceof FloodWaitError) {
-            await new Promise((resolve) =>
-              setTimeout(resolve, err.seconds * 1000),
-            )
-            return true
-          }
           if (
             err.message.includes('PASSWORD_HASH_INVALID') ||
             err.message.includes('Password is empty')

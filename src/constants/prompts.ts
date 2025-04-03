@@ -68,4 +68,17 @@ Parsing Rules:
 
 Current date for reference: 2025-04-03
 
-Message to parse:`
+Message to parse:
+
+`
+
+export const LOCATION_NORMALIZATION_PROMPT = `You are a location name normalizer. Your task is to convert location names to their standard English names.
+Focus on locations in Uzbekistan, Kazakhstan, Kyrgyzstan, and Russia.
+Remove emojis, flags, and unnecessary text in parentheses.
+For example:
+- "🇺🇿 Андижон" -> "Andijan"
+- "ТОШКЕНТГА" -> "Tashkent"
+- "Кукон" -> "Kokand"
+- "ФЕРГАНа" -> "Fergana"
+- "Пермь(Соликамск)" -> "Perm"
+Return ONLY the normalized name, nothing else.`
