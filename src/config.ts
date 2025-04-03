@@ -11,6 +11,11 @@ export const validation_schema = Joi.object({
   DATABASE_PASSWORD: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
   DOCS_PASSWORD: Joi.string().required(),
+  TELEGRAM_API_ID: Joi.number().required(),
+  TELEGRAM_API_HASH: Joi.string().required(),
+  TELEGRAM_PHONE_NUMBER: Joi.string().required(),
+  TELEGRAM_PASSWORD: Joi.string().allow(''),
+  TELEGRAM_CHANNEL_USERNAME: Joi.string().required(),
 })
 
 export const configuration = () => ({
@@ -25,7 +30,7 @@ export const configuration = () => ({
   jwt_secret: process.env.JWT_SECRET,
   docs_password: process.env.DOCS_PASSWORD,
   telegram: {
-    api_id: process.env.TELEGRAM_API_ID,
+    api_id: parseInt(process.env.TELEGRAM_API_ID, 10),
     api_hash: process.env.TELEGRAM_API_HASH,
     phone_number: process.env.TELEGRAM_PHONE_NUMBER,
     password: process.env.TELEGRAM_PASSWORD,
@@ -33,6 +38,9 @@ export const configuration = () => ({
   },
   openai: {
     api_key: process.env.OPENAI_API_KEY,
+  },
+  locationiq: {
+    api_key: process.env.LOCATION_IQ_API_KEY,
   },
 })
 
