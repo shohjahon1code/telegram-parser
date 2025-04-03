@@ -1,0 +1,5 @@
+export enum ErrorMessage {
+  INVALID_OTP_CODE = 'INVALID_OTP_CODE', // 404
+  UNAUTHORIZED = 'UNAUTHORIZED', // 401
+  NOT_FOUND = 'NOT_FOUND', //404
+}

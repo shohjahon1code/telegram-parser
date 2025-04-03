@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - '3000:3000'
+    env_file: .env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
