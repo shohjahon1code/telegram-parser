@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-import { parse_prompt } from 'src/constants/prompts'
+import { PARSE_PROMPT } from 'src/constants/prompts'
 
 import { LocationService } from './location.service'
 import OpenAI from 'openai'
@@ -38,7 +38,7 @@ export class AiParserService {
             content:
               'You are a specialized cargo transport message parser. Extract all relevant information and format it according to the schema. Be thorough in analyzing locations, prices, and cargo details.',
           },
-          { role: 'user', content: parse_prompt + cleaned_message },
+          { role: 'user', content: PARSE_PROMPT + cleaned_message },
         ],
         temperature: 0.3,
       })
@@ -95,7 +95,7 @@ export class AiParserService {
         }
         console.log('cleaned message:', cleaned_message)
 
-        console.log('AI response:', parsed_data)
+        console.log('AI response:', JSON.stringify(parsed_data, null, 2))
         return parsed_data
       } catch (error) {
         console.error('Parse error:', error)
