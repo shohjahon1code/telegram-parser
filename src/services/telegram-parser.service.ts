@@ -191,10 +191,11 @@ export class TelegramParserService implements OnModuleInit {
           this.addMessageToQueue(message)
 
           const parsed_load = await this.aiParserService.parseMessage(message)
-          const load = new this.loadModel(parsed_load)
-          await load.save()
+          console.log(parsed_load)
 
-          this.logger.log('Successfully parsed and saved load:', load._id)
+          const load = await this.loadModel.insertMany(parsed_load)
+
+          this.logger.log('Parsed and saved load:', load)
         } catch (error) {
           this.logger.error('Error processing message:', error)
         }

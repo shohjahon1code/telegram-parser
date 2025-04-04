@@ -1,11 +1,42 @@
-## Description
+# Telegram Load Parser
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+An intelligent Telegram message parser built with NestJS that extracts load information from messages and integrates with the Flexobo API.
+
+## Features
+
+- 🤖 AI-powered message parsing using GPT
+- 📍 Location extraction and validation
+- 💾 MongoDB storage for parsed loads
+- 🔄 Flexobo API integration for cargo management
+- 🚛 Support for various load types and pricing formats
+
+## Prerequisites
+
+- Node.js (v16 or higher)
+- MongoDB
+- Telegram Bot Token
+- OpenAI API Key
+- Flexobo API Token
 
 ## Installation
 
 ```bash
 $ npm install
+```
+
+## Configuration
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+MONGODB_URI=your_mongodb_uri
+MONGODB_USER=your_mongodb_user
+MONGODB_PASSWORD=your_mongodb_password
+MONGODB_NAME=your_database_name
+
+OPENAI_API_KEY=your_openai_api_key
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+FLEXOBO_API_TOKEN=your_flexobo_api_token
 ```
 
 ## Running the app
@@ -21,18 +52,44 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## API Endpoints
 
-```bash
-# unit tests
-$ npm run test
+### Loads
 
-# e2e tests
-$ npm run test:e2e
+- `POST /loads/post-to-flexobo` - Post all loads to Flexobo API
+- `POST /loads/delete-from-flexobo` - Delete specified loads from Flexobo API
 
-# test coverage
-$ npm run test:cov
+## Project Structure
+
 ```
+src/
+├── controllers/
+│   └── load.controller.ts
+├── models/
+│   └── load.schema.ts
+├── services/
+│   ├── ai-parser.service.ts
+│   ├── flexobo.service.ts
+│   ├── gpt.service.ts
+│   ├── load.service.ts
+│   ├── location.service.ts
+│   └── telegram-parser.service.ts
+├── app.module.ts
+├── config.ts
+└── main.ts
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 
 ## Project Structure

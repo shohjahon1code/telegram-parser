@@ -3,11 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 
 import configuration from './config'
+import { LoadController } from './controllers/load.controller'
 import { Load, LoadSchema } from './models/load.schema'
-import { AiParserService } from './services/ai-parser.service'
-import { GPTService } from './services/gpt.service'
-import { LocationService } from './services/location.service'
-import { TelegramParserService } from './services/telegram-parser.service'
+// import { AiParserService } from './services/ai-parser.service'
+// import { GPTService } from './services/gpt.service'
+import { LoadService } from './services/load.service'
+
+// import { LocationService } from './services/location.service'
+// import { TelegramParserService } from './services/telegram-parser.service'
 
 @Module({
   imports: [
@@ -24,12 +27,13 @@ import { TelegramParserService } from './services/telegram-parser.service'
     }),
     MongooseModule.forFeature([{ name: Load.name, schema: LoadSchema }]),
   ],
-  controllers: [],
+  controllers: [LoadController],
   providers: [
-    TelegramParserService,
-    AiParserService,
-    LocationService,
-    GPTService,
+    // TelegramParserService,
+    // AiParserService,
+    // LocationService,
+    // GPTService,
+    LoadService,
   ],
 })
 export class AppModule {}

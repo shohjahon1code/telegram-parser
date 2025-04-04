@@ -18,13 +18,13 @@ export class GPTService {
   private async makeGPTRequest(
     messages: GPTMessage[],
     temperature: number = 0.3,
-    maxTokens: number = 50,
+    maxTokens: number = 1,
   ): Promise<string | null> {
     try {
       const response = await axios.post<GPTResponse>(
         `${this.baseUrl}/chat/completions`,
         {
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4',
           messages,
           temperature,
           max_tokens: maxTokens,
@@ -39,7 +39,7 @@ export class GPTService {
 
       return response.data.choices[0].message.content.trim()
     } catch (error) {
-      this.logger.error('Error making GPT request:', error.message)
+      this.logger.error('Error making DeepSeek request:', error.message)
       if (axios.isAxiosError(error)) {
         this.logger.error('API Error details:', error.response?.data)
       }

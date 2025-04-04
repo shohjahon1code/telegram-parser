@@ -20,8 +20,8 @@ export class Cargo {
 
 @Schema()
 export class Point {
-  @Prop({ type: [Cargo], default: null })
-  cargos: Cargo[] | null
+  @Prop({ type: [Cargo], default: [] })
+  cargos: Cargo[]
 
   @Prop({ type: Number })
   latitude: number
@@ -64,6 +64,9 @@ export class Load {
 
   @Prop({ type: Number })
   type_body_id: number
+
+  @Prop({ type: Object, default: {} })
+  price_notes: Record<string, string>
 
   @Prop({ type: [Point] })
   points: Point[]
